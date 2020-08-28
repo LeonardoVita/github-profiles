@@ -1,0 +1,47 @@
+body{
+  background-color: #d8d8d8;
+}
+
+.header-container{
+  color: #fff;
+  background-color: #333;  
+  padding: 10px 0 10px 20px;
+}
+
+.text-label{
+  margin: 20px 0 10px 0;
+}
+
+form div{
+  display: flex; 
+  margin-bottom: 5vh; 
+}
+
+form input{
+  width: 20%;
+
+  position: relative;
+  z-index: 2;
+  height: 36px;
+  color: #333;
+  border: 2px solid #3d3d3d;
+  border-radius: 12px;
+  padding-left: 10px;
+}
+
+form button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  width: 6%;
+  transform: translateX(-10px);
+  border: 2px solid #3d3d3d;
+  border-radius: 0 12px 12px 0;
+  background-color: #3d3d3d;
+}
+
+form button:hover .search-icon{
+  transform: scale( 1.1);  
+}
+

@@ -4,7 +4,6 @@ import { BiSearchAlt } from 'react-icons/bi'
 
 import './styles.css'
 
-
 export default function Home() {
 
   const [name, setName] = useState('')
@@ -13,6 +12,9 @@ export default function Home() {
   const [followers, setFollowers] = useState(0)
   const [repo, setRepo] = useState(0)
   const [imgURL, setimgURL] = useState('')
+
+  const redirectUri = "http://localhost:3000/login/callback";
+
 
 
   useEffect(() => {
@@ -26,21 +28,32 @@ export default function Home() {
   }
 
   function getData(inputName) {
-    // api.get(`/users/${inputName}`).then(res => {
-    //   const data = res.data
-    //   console.log(res)
-    //   setName(data.name)
-    //   setUserName(data.login)
-    //   setFollowers(data.followers)
-    //   setRepo(data.public_repos)
-    //   setimgURL(data.avatar_url)
-    // })
-
-    api.get(`/users/${inputName}/repos`).then(res => {
+    api.get(`users/${inputName}`, {
+      params: {
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET
+      }
+    }).then(res => {
       const data = res.data
-
       console.log(res)
+      setName(data.name)
+      setUserName(data.login)
+      setFollowers(data.followers)
+      setRepo(data.public_repos)
+      setimgURL(data.avatar_url)
     })
+
+    // api.get(`https://github.com/login/oauth/authorize`, {
+    //   params: {
+    //     client_id: inputName,
+    //     redirect_url: "http://localhost:3000",
+
+    //   }
+    // }).then(res => {
+    //   const data = res.data
+
+    //   console.log(res)
+    // })
   }
 
 
@@ -50,6 +63,7 @@ export default function Home() {
       <header className="header-container">
         <h1>GHProfiles</h1>
         <p>Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios</p>
+        <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirectUri}`}>login</a>
       </header>
       <div className="container">
         <form onSubmit={handleSearch}  >

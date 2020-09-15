@@ -3,12 +3,12 @@ import React from 'react';
 import './global.css';
 import './grid.css';
 
-import Home from './pages/home'
+import Routes from './routes'
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Routes />
     </div>
   );
 }

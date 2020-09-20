@@ -8,12 +8,16 @@ export default function Home() {
 
   const [name, setName] = useState('')
   const [inputUserName, setInputUserName] = useState('')
-  const [userName, setUserName] = useState('')
   const [followers, setFollowers] = useState(0)
-  const [repo, setRepo] = useState(0)
+  const [repoCount, setRepoCount] = useState(0)
+  const [gistsCount, setGistsCount] = useState(0)
   const [imgURL, setimgURL] = useState('')
+  const [email, setEmail] = useState('')
+  const [updatedAt, setUpdatedAt] = useState('')
 
-  const redirectUri = "http://localhost:3000/login/callback";
+  const [repo, setRepo] = useState([])
+
+  const redirectUri = "http://localhost:3000/repo";
 
 
 
@@ -37,11 +41,27 @@ export default function Home() {
       const data = res.data
       console.log(res)
       setName(data.name)
-      setUserName(data.login)
       setFollowers(data.followers)
-      setRepo(data.public_repos)
+      setRepoCount(data.public_repos)
+      setGistsCount(data.public_gists)
       setimgURL(data.avatar_url)
+      setEmail(data.email)
+      setUpdatedAt(data.updated_at)
     })
+
+    api.get(`users/${inputName}/repos?per_page=8&sort=created`, {
+      params: {
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET
+      }
+    }).then(res => {
+      const data = res.data
+      console.log(res)
+
+      setRepo(data)
+    })
+
+
 
     // api.get(`https://github.com/login/oauth/authorize`, {
     //   params: {
@@ -51,8 +71,8 @@ export default function Home() {
     //   }
     // }).then(res => {
     //   const data = res.data
-
     //   console.log(res)
+
     // })
   }
 
@@ -61,13 +81,15 @@ export default function Home() {
   return (
     <div>
       <header className="header-container">
-        <h1>GHProfiles</h1>
-        <p>Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios</p>
-        <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirectUri}`}>login</a>
+        <div className="container">
+          <h1>GHProfiles</h1>
+          <p>Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios</p>
+          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirectUri}`}>login</a>
+        </div>
       </header>
       <div className="container">
+
         <form onSubmit={handleSearch}  >
-          <h2 className="text-label"></h2>
           <div className="grid-8 form-container">
             <input
               type="text"
@@ -78,26 +100,34 @@ export default function Home() {
             <button type="submit"><BiSearchAlt className="search-icon" size="26" color="#fff" /></button>
           </div>
         </form>
+
       </div>
       <div className="container profile-container">
 
-        <div className="grid-4">
+        <div className="img-cantainer grid-16">
           <img src={imgURL} alt="teste" className="avatar-img" />
+          <h2>{name}</h2>
         </div>
-        <div className="grid-6 info-container">
-          <p>Nome: {name}</p>
-          <p>Username: {userName}</p>
+        <div className="grid-16 info-container">
           <p>Followers: {followers}</p>
-          <p>Public Repos: {repo}</p>
+          <p>Repos: {repoCount}</p>
+          <p>Gists: {gistsCount}</p>
+          <p>{email}</p>
+          <p>Ultima atualização: {updatedAt}</p>
         </div>
-        <div className="grid-6 rep-container">
-          <h2>Novos repositorios</h2>
-          <a href="#">github-profiles</a>
-          <a href="#">GitHub-Status-Server</a>
-          <a href="#">SemanaOmnistack11</a>
-          <a href="#">doe-sangue</a>
-        </div>
+      </div>
 
+      <div className="container rep-container">
+        <ul>
+          {repo.map(item => {
+            return (
+              <li key={item.id} className="grid-8">
+                <a href={item.html_url}>{item.name}</a>
+                <p>{item.description}</p>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </div>
   )

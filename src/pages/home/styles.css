@@ -6,6 +6,7 @@ body{
   color: #fff;
   background-color: #333;  
   padding: 10px 0 10px 20px;
+  margin-bottom: 20px;
 }
 
 .text-label{
@@ -14,7 +15,7 @@ body{
 
 form div{
   display: flex; 
-  margin-bottom: 5vh; 
+  margin-bottom: 5px; 
 }
 
 .form-container{
@@ -58,11 +59,34 @@ form button:hover .search-icon{
   height: auto;
   max-width: 200px;
   min-width: 60px;
+  border-radius: 200px;
+  margin-bottom: 10px;
 }
 
+.img-cantainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.img-cantainer h2{
+  font-size: calc(12px + 0.6vw);
+}
+
+.info-container{
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: center; 
+  margin-bottom: 20px; 
+}
+
+
 .info-container p{
- font-size: 1.2rem;
- margin-bottom: 10px;
+ font-size: calc(12px + 0.1vw);
+ margin-left: 10px;
 }
 
 .rep-container{
@@ -71,6 +95,35 @@ form button:hover .search-icon{
   flex-direction: column;
 }
 
-.rep-container a{
+.rep-container ul{
   margin-top: 10px;
+}
+
+.rep-container li{
+  margin-bottom: 45px;
+}
+
+.rep-container li a{
+  color: #3d3d3d;
+  font-weight: bold;
+}
+
+.rep-container li a:hover{
+  color: #5f5f5f;
+  text-decoration: underline;
+}
+
+.rep-container p{
+  font-size: calc(12px + 0.4vw);
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 787px) {
+  .info-container{
+    flex-direction:column; 
+    margin-bottom: 10px; 
+  }
+  .info-container p{
+    margin-bottom: 5px; 
+  }
 }

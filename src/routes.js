@@ -2,7 +2,8 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Home from './pages/home'
-import Repo from './pages/repo'
+import Callback from './pages/oAuthCallback'
+import Repos from './pages/Repos'
 
 export default function Routes() {
   return (
@@ -10,7 +11,8 @@ export default function Routes() {
       <Switch>
 
         <Route exact path="/" component={Home} />
-        <Route path="/repo" component={Repo} />
+        <Route path="/login/callback" component={Callback} />
+        <Route path="/repos" component={Repos} />
 
       </Switch>
     </BrowserRouter>

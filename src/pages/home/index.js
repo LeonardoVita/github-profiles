@@ -17,7 +17,7 @@ export default function Home() {
 
   const [repo, setRepo] = useState([])
 
-  const redirectUri = "http://localhost:3000/repo";
+  const redirectUri = "http://localhost:3000/login/callback";
 
 
 

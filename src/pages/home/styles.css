@@ -27,7 +27,7 @@ form input{
 
   position: relative;
   z-index: 2;
-  height: 36px;
+  height: 40px;
   color: #333;
   border: 2px solid #3d3d3d;
   border-radius: 12px;
@@ -38,7 +38,7 @@ form button{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 36px;
+  height: 40px;
   width: 30%;
   transform: translateX(-10px);
   border: 2px solid #3d3d3d;
@@ -46,8 +46,29 @@ form button{
   background-color: #3d3d3d;
 }
 
-form button:hover .search-icon{
-  transform: scale( 1.1);  
+form button:hover {
+  background-color: #4b4b4b;
+  border-color:#4b4b4b; 
+}
+
+.github-button{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  /* transform: translateX(-10px); */
+  border: 2px solid #3d3d3d;
+  border-radius: 4px;
+  background-color: #3d3d3d;
+  color: white;
+  font-size: 1rem;
+  padding-left: 10px;
+}
+
+.github-button:hover{
+  
+  background-color: #4b4b4b;
+  border-color:#4b4b4b;
+ 
 }
 
 /* .profile-container{

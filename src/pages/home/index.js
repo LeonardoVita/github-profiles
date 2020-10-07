@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api'
+import { github, backend } from '../../services/api'
 import { BiSearchAlt } from 'react-icons/bi'
-
 import './styles.css'
 
 export default function Home() {
 
+  const [inputUserName, setInputUserName] = useState('');
+
+  // DADOS DO USUARIO RECEBIDOS DA API 
   const [name, setName] = useState('')
-  const [inputUserName, setInputUserName] = useState('')
   const [followers, setFollowers] = useState(0)
   const [repoCount, setRepoCount] = useState(0)
   const [gistsCount, setGistsCount] = useState(0)
   const [imgURL, setimgURL] = useState('')
   const [email, setEmail] = useState('')
   const [updatedAt, setUpdatedAt] = useState('')
-
   const [repo, setRepo] = useState([])
-
-  const redirectUri = "http://localhost:3000/login/callback";
-
 
 
   useEffect(() => {
@@ -32,14 +29,14 @@ export default function Home() {
   }
 
   function getData(inputName) {
-    api.get(`users/${inputName}`, {
+    github.get(`/users/${inputName}`, {
       params: {
         client_id: process.env.REACT_APP_CLIENT_ID,
         client_secret: process.env.REACT_APP_CLIENT_SECRET
       }
     }).then(res => {
       const data = res.data
-      console.log(res)
+
       setName(data.name)
       setFollowers(data.followers)
       setRepoCount(data.public_repos)
@@ -49,34 +46,23 @@ export default function Home() {
       setUpdatedAt(data.updated_at)
     })
 
-    api.get(`users/${inputName}/repos?per_page=8&sort=created`, {
+    github.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
       params: {
         client_id: process.env.REACT_APP_CLIENT_ID,
         client_secret: process.env.REACT_APP_CLIENT_SECRET
       }
     }).then(res => {
       const data = res.data
-      console.log(res)
-
       setRepo(data)
     })
 
-
-
-    // api.get(`https://github.com/login/oauth/authorize`, {
-    //   params: {
-    //     client_id: inputName,
-    //     redirect_url: "http://localhost:3000",
-
-    //   }
-    // }).then(res => {
-    //   const data = res.data
-    //   console.log(res)
-
-    // })
   }
 
+  // async function handleLogin() {
+  //   const res = await backend.get('/login/github').catch((err) => { console.log({ err }) })
 
+  //   console.log(res)
+  // }
 
   return (
     <div>
@@ -84,7 +70,6 @@ export default function Home() {
         <div className="container">
           <h1>GHProfiles</h1>
           <p>Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios</p>
-          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirectUri}`}>login</a>
         </div>
       </header>
       <div className="container">
@@ -100,20 +85,23 @@ export default function Home() {
             <button type="submit"><BiSearchAlt className="search-icon" size="26" color="#fff" /></button>
           </div>
         </form>
+        <button className="grid-4 github-button">
+          Login With Github
+        </button>
 
       </div>
       <div className="container profile-container">
 
         <div className="img-cantainer grid-16">
-          <img src={imgURL} alt="teste" className="avatar-img" />
-          <h2>{name}</h2>
+          <img src={imgURL || "https://github.githubassets.com/images/modules/open_graph/github-mark.png"} alt="profile avatar" className="avatar-img" />
+          <h2>{name || "Github user name"}</h2>
         </div>
         <div className="grid-16 info-container">
-          <p>Followers: {followers}</p>
-          <p>Repos: {repoCount}</p>
-          <p>Gists: {gistsCount}</p>
+          <p>Followers: {followers || 0} </p>
+          <p>Repos: {repoCount || 0}</p>
+          <p>Gists: {gistsCount || 0}</p>
           <p>{email}</p>
-          <p>Ultima atualização: {updatedAt}</p>
+          <p>Ultima atualização: {updatedAt || 0}</p>
         </div>
       </div>
 

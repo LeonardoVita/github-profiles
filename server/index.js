@@ -27,27 +27,33 @@ app.get('/', (request, response) => {
 // })
 
 
-app.get('/Authorize', async (request, response) => {
+app.post('/Authorize', async (request, response) => {
 
-  const { code } = request.query
+  const { code } = request.body
 
   const data = await superagent
     .post('https://github.com/login/oauth/access_token')
     .send({ client_id, client_secret, code })
     .set('Accept', 'application/json')
-    .catch((err) => { console.log(err) })
+    .catch((err) => {
+      console.log(err)
+      response.send(err)
+    })
 
-  const acess_data = await JSON.parse(data.text)
+  const access_data = await JSON.parse(data.text)
 
   const user = await superagent
     .get('https://api.github.com/user')
-    .set('Authorization', `${acess_data.token_type} ${acess_data.access_token}`)
+    .set('Authorization', `${access_data.token_type} ${access_data.access_token}`)
     .set('User-Agent', 'ghprofiles')
-    .catch((err) => { console.log(err) })
+    .catch((err) => {
+      console.log(err)
+      response.send(err)
+    })
 
-  console.log("Autorizado!!")
   const user_data = JSON.parse(user.text)
-  response.send({ user_data, acess_data })
+  console.log(`Autorizado!! ${user_data.name}`)
+  response.send({ user_data, access_data })
 
 })
 

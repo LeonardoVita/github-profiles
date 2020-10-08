@@ -27,9 +27,9 @@ export default function Routes() {
       <Switch>
 
         <PrivateRoute exact path="/" component={Home} />
+        <Route path="/login/callback" component={Callback} />
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/login/callback" component={Callback} />
-        <PrivateRoute path="/repos" component={() => <h1>vc esta logado</h1>} />
+        <PrivateRoute path="/repos" component={Repos} />
 
       </Switch>
     </BrowserRouter>

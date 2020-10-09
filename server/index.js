@@ -59,13 +59,31 @@ app.post('/Authorize', async (request, response) => {
 
 app.get('/users/:name', async (request, response) => {
 
+  const { name } = request.params
+  const { access_token, token_type } = request.query
+
   const user = await superagent
-    .get('https://api.github.com/user')
-    .set('Authorization', `${acess_data.token_type} ${acess_data.access_token}`)
+    .get(`https://api.github.com/users/${name}`)
+    .set('Authorization', `${token_type} ${access_token}`)
     .set('User-Agent', 'ghprofiles')
     .catch((err) => { console.log(err) })
 
-  response.send("em dev")
+  response.send(user.body)
+})
+
+app.get('/users/:name/repos', async (request, response) => {
+
+  const { name } = request.params
+  const { access_token, token_type, sort, per_page } = request.query
+
+  const user = await superagent
+    .get(`https://api.github.com/users/${name}/repos`)
+    .set('Authorization', `${token_type} ${access_token}`)
+    .set('User-Agent', 'ghprofiles')
+    .query({ 'sort': sort, 'per_page': per_page })
+    .catch((err) => { console.log(err) })
+
+  response.send(user.body)
 })
 
 app.listen(3333);

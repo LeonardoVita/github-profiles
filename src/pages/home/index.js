@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { github, backend } from '../../services/api'
+import { backend } from '../../services/api'
 import { BiSearchAlt } from 'react-icons/bi'
 import './styles.css'
 
@@ -7,62 +7,79 @@ export default function Home() {
 
   const [inputUserName, setInputUserName] = useState('');
 
-  // DADOS DO USUARIO RECEBIDOS DA API 
-  const [name, setName] = useState('')
-  const [followers, setFollowers] = useState(0)
-  const [repoCount, setRepoCount] = useState(0)
-  const [gistsCount, setGistsCount] = useState(0)
-  const [imgURL, setimgURL] = useState('')
-  const [email, setEmail] = useState('')
-  const [updatedAt, setUpdatedAt] = useState('')
+  // DADOS DO USUARIO RECEBIDOS DA API   
+  const [profile, setProfile] = useState({
+    name: '',
+    imgURL: '',
+    email: '',
+    updateAt: 0,
+    followers: 0,
+    repoCount: 0,
+    gistsCount: 0
+  })
   const [repo, setRepo] = useState([])
 
+  const access_token = window.localStorage.getItem('access_token')
+  const token_type = window.localStorage.getItem('token_type')
+  const { login } = JSON.parse(window.localStorage.getItem('user_data'))
 
-  // useEffect(() => {
-  //   getData("LeonardoVita")
-  // }, [])
+  useEffect(() => {
+    getData(login)
+  }, [])
 
+  function handleSearch(e) {
+    e.preventDefault()
+    getData(inputUserName)
+  }
 
-  // function handleSearch(e) {
-  //   e.preventDefault()
-  //   getData(inputUserName)
-  // }
+  function dataFormatada(date) {
+    var data = new Date(date),
+      dia = data.getDate().toString().padStart(2, '0'),
+      mes = (data.getMonth() + 1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
+      ano = data.getFullYear(),
+      hora = data.getHours().toString().padStart(2, '0'),
+      minuto = data.getMinutes().toString().padStart(2, '0'),
+      segundo = data.getSeconds().toString().padStart(2, '0');
+    return dia + "/" + mes + "/" + ano + "  " + hora + ":" + minuto + ":" + segundo;
+  }
 
-  // function getData(inputName) {
-  //   github.get(`/users/${inputName}`, {
-  //     params: {
-  //       client_id: process.env.REACT_APP_CLIENT_ID,
-  //       client_secret: process.env.REACT_APP_CLIENT_SECRET
-  //     }
-  //   }).then(res => {
-  //     const data = res.data
+  function getData(inputName) {
+    backend.get(`/users/${inputName}`, {
+      params: {
+        'access_token': access_token,
+        'token_type': token_type
+      }
+    }).then(res => {
+      const data = res.data
 
-  //     setName(data.name)
-  //     setFollowers(data.followers)
-  //     setRepoCount(data.public_repos)
-  //     setGistsCount(data.public_gists)
-  //     setimgURL(data.avatar_url)
-  //     setEmail(data.email)
-  //     setUpdatedAt(data.updated_at)
-  //   })
+      const updated_at = dataFormatada(res.data.updated_at)
+      console.log({ updated_at })
 
-  //   github.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
-  //     params: {
-  //       client_id: process.env.REACT_APP_CLIENT_ID,
-  //       client_secret: process.env.REACT_APP_CLIENT_SECRET
-  //     }
-  //   }).then(res => {
-  //     const data = res.data
-  //     setRepo(data)
-  //   })
+      setProfile({
+        ...profile,
+        name: data.name,
+        imgURL: data.avatar_url,
+        email: data.email,
+        updatedAt: updated_at,
+        followers: data.followers,
+        repoCount: data.public_repos,
+        gistsCount: data.public_gists,
+      })
 
-  // }
+    })
 
-  // async function handleLogin() {
-  //   const res = await backend.get('/login/github').catch((err) => { console.log({ err }) })
+    backend.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
+      params: {
+        'access_token': access_token,
+        'token_type': token_type
+      }
+    }).then(res => {
+      const data = res.data
+      setRepo(data)
+    })
 
-  //   console.log(res)
-  // }
+  }
+
 
   return (
     <div>
@@ -74,11 +91,11 @@ export default function Home() {
       </header>
       <div className="container">
 
-        <form onSubmit={() => alert('handleSearch')}  >
+        <form onSubmit={e => handleSearch(e)}>
           <div className="grid-8 form-container">
             <input
               type="text"
-              placeholder="LeonardoVita"
+              placeholder={login}
               value={inputUserName}
               onChange={e => setInputUserName(e.target.value)}
             />
@@ -89,15 +106,15 @@ export default function Home() {
       <div className="container profile-container">
 
         <div className="img-cantainer grid-16">
-          <img src={imgURL || "https://www.lifestylesolutionsbyworldmark.com/img/global/icon-user.svg"} alt="profile avatar" className="avatar-img" />
-          <h2>{name || "Github user name"}</h2>
+          <img src={profile.imgURL || "https://www.lifestylesolutionsbyworldmark.com/img/global/icon-user.svg"} alt="profile avatar" className="avatar-img" />
+          <h2>{profile.name || "Github user name"}</h2>
         </div>
         <div className="grid-16 info-container">
-          <p>Followers: {followers || 0} </p>
-          <p>Repos: {repoCount || 0}</p>
-          <p>Gists: {gistsCount || 0}</p>
-          <p>{email}</p>
-          <p>Ultima atualização: {updatedAt || 0}</p>
+          <p>Followers: {profile.followers || 0} </p>
+          <p>Repos: {profile.repoCount || 0}</p>
+          <p>Gists: {profile.gistsCount || 0}</p>
+          <p>{profile.email}</p>
+          <p>Ultima atualização: {profile.updatedAt || 0}</p>
         </div>
       </div>
 

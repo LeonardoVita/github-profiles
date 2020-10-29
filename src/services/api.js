@@ -5,7 +5,7 @@ const github = axios.create({
 })
 
 const backend = axios.create({
-  baseURL: 'http://localhost:3333'
+  baseURL: 'https://ghprofiles.herokuapp.com'
 })
 
 export { github, backend }

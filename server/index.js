@@ -14,7 +14,6 @@ app.use((req, res, next) => {
 
 const client_id = process.env.REACT_APP_CLIENT_ID
 const client_secret = process.env.REACT_APP_CLIENT_SECRET
-const host = "http://localhost:3333"
 
 app.get('/', (request, response) => {
   response.send('Simple OAuth app')
@@ -86,4 +85,8 @@ app.get('/users/:name/repos', async (request, response) => {
   response.send(user.body)
 })
 
-app.listen(3333);
+const PORT = process.env.PORT || 3333
+app.listen(PORT,()=>{
+  console.log("Servidor online")
+});
+

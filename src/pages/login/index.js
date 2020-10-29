@@ -4,6 +4,7 @@ import './styles.css'
 import imgGithubLight from '../../img/github-mark/GitHub-Mark-Light-32px.png'
 
 export default function Login() {
+  const REDIRECT_URI = "https://ghprofiles-5cf24.web.app/login/callback"
   return (
     <div className="wrap">
 
@@ -16,7 +17,7 @@ export default function Login() {
       <div className="longin-area container">
 
         <div className="grid-4">
-          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=http://localhost:3000/login/callback`} className="button-container">
+          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${REDIRECT_URI}`} className="button-container">
             <img src={imgGithubLight} alt="GitHub Logo light" />
             <p>Github Login</p>
           </a>

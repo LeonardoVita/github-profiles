@@ -1,9 +1,13 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { backend } from '../../services/api'
+import backend  from '../../services/api'
+
+import '../home/styles.css'
 
 const url = window.location.href
 const hasCode = url.includes("?code=")
+
+
 
 export default function OAuthCallback() {
 
@@ -26,5 +30,5 @@ export default function OAuthCallback() {
       .catch((err) => { console.error(err) })
   }
 
-  return <h1>Pagina de callback</h1>
+  return <div className="loading"/>
 }

@@ -1,11 +1,9 @@
 import axios from 'axios'
 
-const github = axios.create({
-  baseURL: 'https://api.github.com'
+const hasLocalHost = window.location.hostname.includes('localhost')
+
+const backend = axios.create({  
+  baseURL: hasLocalHost ? 'http://localhost:3333' : 'https://ghprofiles.herokuapp.comss'  
 })
 
-const backend = axios.create({
-  baseURL: 'https://ghprofiles.herokuapp.com'
-})
-
-export { github, backend }
+export default backend 

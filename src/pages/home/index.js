@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { backend } from '../../services/api'
+import { useHistory } from 'react-router-dom'
+import  backend  from '../../services/api'
 import { BiSearchAlt } from 'react-icons/bi'
+
 import './styles.css'
+
+import Header from '../../components/Header/Header';
+import Head from '../../components/Head';
 
 export default function Home() {
 
+  let history = useHistory();
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
+
+  //controlando o input
   const [inputUserName, setInputUserName] = useState('');
 
   // DADOS DO USUARIO RECEBIDOS DA API   
@@ -19,19 +31,12 @@ export default function Home() {
   })
   const [repo, setRepo] = useState([])
 
+  //coletando dados do usuario logado
   const access_token = window.localStorage.getItem('access_token')
   const token_type = window.localStorage.getItem('token_type')
   const { login } = JSON.parse(window.localStorage.getItem('user_data'))
-
-  useEffect(() => {
-    getData(login)
-  }, [])
-
-  function handleSearch(e) {
-    e.preventDefault()
-    getData(inputUserName)
-  }
-
+  
+  //tratamento do campo data, para o padrão
   function dataFormatada(date) {
     var data = new Date(date),
       dia = data.getDate().toString().padStart(2, '0'),
@@ -43,54 +48,79 @@ export default function Home() {
     return dia + "/" + mes + "/" + ano + "  " + hora + ":" + minuto + ":" + segundo;
   }
 
-  function getData(inputName) {
-    backend.get(`/users/${inputName}`, {
-      params: {
-        'access_token': access_token,
-        'token_type': token_type
-      }
-    }).then(res => {
-      const data = res.data
+  useEffect(() => {
+    getData(login)
+  }, [])  // <<--- React Hook useEffect has missing dependencies: 'getData' and 'login'. Either include them or remove the dependency array.
 
-      const updated_at = dataFormatada(res.data.updated_at)
-      console.log({ updated_at })
+  async function getData(inputName) {
 
+    try {    
+      setLoading(true) 
+      setError(false)
+      const userResponse = await backend.get(`/users/${inputName}`, {
+        params: {
+          'access_token': access_token,
+          'token_type': token_type
+        }
+      })
+  
+      const userData = userResponse.data
+      const updated_at = dataFormatada(userResponse.data.updated_at)    
       setProfile({
         ...profile,
-        name: data.name,
-        imgURL: data.avatar_url,
-        email: data.email,
+        name: userData.name,
+        imgURL: userData.avatar_url,
+        email: userData.email,
         updatedAt: updated_at,
-        followers: data.followers,
-        repoCount: data.public_repos,
-        gistsCount: data.public_gists,
+        followers: userData.followers,
+        repoCount: userData.public_repos,
+        gistsCount: userData.public_gists,
+      })    
+  
+      const repositoriesResponse = await backend.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
+        params: {
+          'access_token': access_token,
+          'token_type': token_type
+        }
       })
 
-    })
+      const repositories = repositoriesResponse.data
+      setRepo(repositories)  
 
-    backend.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
-      params: {
-        'access_token': access_token,
-        'token_type': token_type
-      }
-    }).then(res => {
-      const data = res.data
-      setRepo(data)
-    })
+    } catch (error) {
+      setError(error)
+      console.error(error)
+    }finally{
+      setLoading(false)
+    }
 
+
+  } 
+  
+  function handleSearch(e) {
+    e.preventDefault()
+    getData(inputUserName)
+  }
+
+  function handleLogout(){    
+    window.localStorage.removeItem('scope')
+    window.localStorage.removeItem('token_type')
+    window.localStorage.removeItem('user_data')
+    window.localStorage.removeItem('access_token')
+    history.push('/')
+  }
+
+  //fecha modal caso seja clicado fora do modal
+  function closeModal({target}){
+    target.className === "modal-background" && setLogoutModal(false)
   }
 
 
   return (
     <div>
-      <header className="header-container">
-        <div className="container">
-          <h1>GHProfiles</h1>
-          <p>Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios</p>
-        </div>
-      </header>
+      <Head title="Home" description="Pesquise pelo nome do usuario github para buscar informações do usuario"/>
+      <Header setLogoutModal={setLogoutModal} paragraph="Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios"/>
       <div className="container">
-
         <form onSubmit={e => handleSearch(e)}>
           <div className="grid-8 form-container">
             <input
@@ -104,7 +134,6 @@ export default function Home() {
         </form>
       </div>
       <div className="container profile-container">
-
         <div className="img-cantainer grid-16">
           <img src={profile.imgURL || "https://www.lifestylesolutionsbyworldmark.com/img/global/icon-user.svg"} alt="profile avatar" className="avatar-img" />
           <h2>{profile.name || "Github user name"}</h2>
@@ -117,7 +146,26 @@ export default function Home() {
           <p>Ultima atualização: {profile.updatedAt || 0}</p>
         </div>
       </div>
+      {
+        loading && <div className="loading"></div>
+      }
+      {
+        error && <div className="error">{error.message + ' - Falha ao carregar os dados do usuario'}</div>
+      }
+      {
+        logoutModal && (
+        <div className="modal-background" onClick={(e)=>closeModal(e)}>
+          <div className="modal-container" >
+            <h2>Fazer logout de usuário?</h2>
+            <div className="modal-button-container">
+              <button className="modal-button" onClick={()=>handleLogout()}>Sim</button>
+              <button className="modal-button" onClick={()=>setLogoutModal(false)}>Não</button>
+            </div>         
+          </div>
+        </div>
+        )
 
+      }
       <div className="container rep-container">
         <ul>
           {repo.map(item => {

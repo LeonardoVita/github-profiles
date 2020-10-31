@@ -4,7 +4,6 @@ import { isAuthenticated } from './auth'
 
 import Home from './pages/home'
 import Login from './pages/login'
-import Callback from './pages/oAuthCallback'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -24,7 +23,6 @@ export default function Routes() {
     <BrowserRouter>
       <Switch>
         <PrivateRoute exact path="/" component={Home} />
-        <Route path="/login/callback" component={Callback} />
         <Route path="/login" component={Login} />
       </Switch>
     </BrowserRouter>

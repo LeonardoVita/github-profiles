@@ -57,13 +57,14 @@ export default function Home() {
     try {    
       setLoading(true) 
       setError(false)
+
       const userResponse = await backend.get(`/users/${inputName}`, {
         params: {
           'access_token': access_token,
           'token_type': token_type
         }
       })
-  
+      console.log(userResponse)
       const userData = userResponse.data
       const updated_at = dataFormatada(userResponse.data.updated_at)    
       setProfile({
@@ -171,7 +172,7 @@ export default function Home() {
           {repo.map(item => {
             return (
               <li key={item.id} className="grid-8">
-                <a href={item.html_url}>{item.name}</a>
+                <h2 href={item.html_url}>{item.name}</h2>
                 <p>{item.description}</p>
               </li>
             )

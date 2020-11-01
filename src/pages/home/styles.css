@@ -180,17 +180,19 @@ form button:hover {
 }
 
 .rep-container li a {
-  color: #3d3d3d;
-  font-weight: bold;
 }
 
 .rep-container li a:hover {
-  color: #5f5f5f;
-  text-decoration: underline;
+}
+
+.rep-container h2 {
+  font-size: calc(14px + 0.4vw);
+  letter-spacing: 1px;
+  line-height: calc(22px + 0.4vw);
 }
 
 .rep-container p {
-  font-size: calc(12px + 0.4vw);
+  font-size: calc(8px + 0.4vw);
   margin-top: 10px;
 }
 

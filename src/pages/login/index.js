@@ -4,6 +4,7 @@ import backend  from '../../services/api'
 
 import './styles.css'
 import imgGithubLight from '../../img/github-mark/GitHub-Mark-Light-32px.png'
+import LoginImg from '../../img/login.svg'
 
 import Header from '../../components/Header/Header';
 import Head from '../../components/Head';
@@ -53,7 +54,11 @@ export default function Login() {
       <Head title="Login" description="Faça o login o app GHProfiles"/>
       <Header paragraph="Faça login para começar a navegar por esse github app"/>
       <div className="longin-area container">
-        <div className="grid-4">
+        <div className="grid-10">
+          <img src={LoginImg} alt="activity-developer" className="login-img" />
+        </div>
+        <div className="grid-1"/>
+        <div className="grid-5">
           <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`} className="button-container">
             <img src={imgGithubLight} alt="GitHub Logo light" />
             <p>Github Login</p>

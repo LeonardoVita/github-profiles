@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&display=swap");
 
 /* ==========================================================================
    Reset
@@ -6,30 +6,70 @@
 
 /**
  * Remove anchor text-decoration
- */ 
+ */
 
- a {
-	text-decoration: none;
+a {
+  text-decoration: none;
 }
 
 /**
  * Remove list-style
- */ 
+ */
 
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
 
-html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, footer, header, nav, section, main {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+a,
+em,
+img,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+article,
+footer,
+header,
+nav,
+section,
+main {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, ul {
-	font-size: 1em;
-	font-weight: normal;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+ul {
+  font-size: 1em;
+  font-weight: normal;
 }
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
@@ -40,7 +80,7 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
  *    user zoom.
  */
 
- html {
+html {
   font-family: sans-serif; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -52,7 +92,7 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
 
 body {
   margin: 0;
-  font: 400 14px 'Roboto Slab', sans-serif;
+  font: 400 14px "Roboto Slab", sans-serif;
   background: #f0f0f5;
 }
 

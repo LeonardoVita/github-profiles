@@ -14,7 +14,7 @@ export default function Login() {
   // const REDIRECT_URI = "http://localhost:3000/login" 
   // const CLIENT_ID = "8eb480b0ac01ef230b5f" 
 
-  const REDIRECT_URI = "https://ghprofiles-5cf24.web.app/login/callback" 
+  const REDIRECT_URI = "https://ghprofiles-5cf24.web.app/login" 
   const CLIENT_ID = "52196b4b63ed01cc4ee0"
   
   let history = useHistory()   

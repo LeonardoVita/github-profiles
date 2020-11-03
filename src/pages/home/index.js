@@ -1,40 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
-import  backend  from '../../services/api'
-import { BiSearchAlt } from 'react-icons/bi'
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import  backend  from "../../services/api";
+import { BiSearchAlt } from "react-icons/bi";
 
-import './styles.css'
+import "./styles.css";
 
-import Header from '../../components/Header/Header';
-import Head from '../../components/Head';
+import Header from "../../components/Header/Header";
+import Head from "../../components/Head";
 
 export default function Home() {
 
   let history = useHistory();
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [logoutModal, setLogoutModal] = useState(false)
+  //carregando objetos em tela caso nescessario
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
 
   //controlando o input
   const [inputUserName, setInputUserName] = useState('');
 
   // DADOS DO USUARIO RECEBIDOS DA API   
   const [profile, setProfile] = useState({
-    name: '',
-    imgURL: '',
-    email: '',
+    name: "",
+    imgURL: "",
+    email: "",
     updateAt: 0,
     followers: 0,
     repoCount: 0,
     gistsCount: 0
-  })
-  const [repo, setRepo] = useState([])
+  });
+  const [repo, setRepo] = useState([]);
 
   //coletando dados do usuario logado
-  const access_token = window.localStorage.getItem('access_token')
-  const token_type = window.localStorage.getItem('token_type')
-  const { login } = JSON.parse(window.localStorage.getItem('user_data'))
+  const access_token = window.localStorage.getItem("access_token");
+  const token_type = window.localStorage.getItem("token_type");
+  const { login } = JSON.parse(window.localStorage.getItem("user_data"));
   
   //tratamento do campo data, para o padrão
   function dataFormatada(date) {
@@ -46,27 +47,28 @@ export default function Home() {
       minuto = data.getMinutes().toString().padStart(2, '0'),
       segundo = data.getSeconds().toString().padStart(2, '0');
     return dia + "/" + mes + "/" + ano + "  " + hora + ":" + minuto + ":" + segundo;
-  }
+  };
 
   useEffect(() => {
-    getData(login)
-  }, [])  // <<--- React Hook useEffect has missing dependencies: 'getData' and 'login'. Either include them or remove the dependency array.
+    getData(login);
+  }, []);  // <<--- React Hook useEffect has missing dependencies: 'getData' and 'login'. Either include them or remove the dependency array.
 
+  //busca os dados de usuario e repo do backend
   async function getData(inputName) {
 
     try {    
-      setLoading(true) 
-      setError(false)
+      setLoading(true) ;
+      setError(false);
 
       const userResponse = await backend.get(`/users/${inputName}`, {
         params: {
-          'access_token': access_token,
-          'token_type': token_type
+          "access_token": access_token,
+          "token_type": token_type
         }
-      })
-      console.log(userResponse)
-      const userData = userResponse.data
-      const updated_at = dataFormatada(userResponse.data.updated_at)    
+      });
+      
+      const userData = userResponse.data;
+      const updated_at = dataFormatada(userResponse.data.updated_at)  ;  
       setProfile({
         ...profile,
         name: userData.name,
@@ -76,51 +78,55 @@ export default function Home() {
         followers: userData.followers,
         repoCount: userData.public_repos,
         gistsCount: userData.public_gists,
-      })    
+      })  ;  
   
       const repositoriesResponse = await backend.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
         params: {
-          'access_token': access_token,
-          'token_type': token_type
+          "access_token": access_token,
+          "token_type": token_type
         }
-      })
+      });
 
-      const repositories = repositoriesResponse.data
-      setRepo(repositories)  
+      const repositories = repositoriesResponse.data;
+      setRepo(repositories);
 
     } catch (error) {
-      setError(error)
-      console.error(error)
+      setError(error);
+      console.error(error);
     }finally{
-      setLoading(false)
+      setLoading(false);
     }
 
 
-  } 
+  };
   
+  //lida com a busca input
   function handleSearch(e) {
-    e.preventDefault()
-    getData(inputUserName)
-  }
+    e.preventDefault();
+    getData(inputUserName);
+  };
 
+  //faz o logout de usuario
   function handleLogout(){    
-    window.localStorage.removeItem('scope')
-    window.localStorage.removeItem('token_type')
-    window.localStorage.removeItem('user_data')
-    window.localStorage.removeItem('access_token')
-    history.push('/')
+    window.localStorage.removeItem("scope");
+    window.localStorage.removeItem("token_type");
+    window.localStorage.removeItem("user_data");
+    window.localStorage.removeItem("access_token");
+    history.push('/');
   }
 
   //fecha modal caso seja clicado fora do modal
   function closeModal({target}){
-    target.className === "modal-background" && setLogoutModal(false)
+    target.className === "modal-background" && setLogoutModal(false);
   }
 
 
   return (
     <div>
+      
       <Head title="Home" description="Pesquise pelo nome do usuario github para buscar informações do usuario"/>
       <Header setLogoutModal={setLogoutModal} paragraph="Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios"/>
+      {/* AREA DO INPUT */}
       <div className="container">
         <form onSubmit={e => handleSearch(e)}>
           <div className="grid-8 form-container">
@@ -134,6 +140,7 @@ export default function Home() {
           </div>
         </form>
       </div>
+      {/* INFORMAÇÕES DO USUARIO  */}
       <div className="container profile-container">
         <div className="img-cantainer grid-16">
           <img src={profile.imgURL || "https://www.lifestylesolutionsbyworldmark.com/img/global/icon-user.svg"} alt="profile avatar" className="avatar-img" />
@@ -147,11 +154,12 @@ export default function Home() {
           <p>Ultima atualização: {profile.updatedAt || 0}</p>
         </div>
       </div>
+      {/* OBJETOS LOADING, ERROR E MODAL DE LOGOUT */}
       {
         loading && <div className="loading"></div>
       }
       {
-        error && <div className="error">{error.message + ' - Falha ao carregar os dados do usuario'}</div>
+        error && <div className="error">{error.message + " - Falha ao carregar os dados do usuario"}</div>
       }
       {
         logoutModal && (
@@ -165,8 +173,8 @@ export default function Home() {
           </div>
         </div>
         )
-
       }
+      {/* AREA DOS REPOPOSITORIOS  */}
       <div className="container rep-container">
         <ul>
           {repo.map(item => {
@@ -179,6 +187,7 @@ export default function Home() {
           })}
         </ul>
       </div>
+
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import './global.css';
-import './grid.css';
+import "./global.css";
+import "./grid.css";
 
-import Routes from './routes'
+import Routes from "./routes";
 
 function App() {
   return (
@@ -11,6 +11,6 @@ function App() {
       <Routes />
     </div>
   );
-}
+};
 
 export default App;

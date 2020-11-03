@@ -3,3 +3,6 @@ Veja o projeto funcionando no FireBaseApp [https://ghprofiles-5cf24.web.app](htt
 
 # github-profiles
 Utilizando a API do github para apresentar profiles e repositórios pelo nome de usuário
+
+## :memo: License
+This project is under the MIT license. See the [LICENSE](https://github.com/lukemorales/react-native-design-code/blob/master/LICENSE) for more information.

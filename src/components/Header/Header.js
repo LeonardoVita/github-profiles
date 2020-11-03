@@ -21,4 +21,4 @@ export default function Header({setLogoutModal, paragraph}) {
       </div>
     </header>
   );
-};
+}

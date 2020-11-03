@@ -47,11 +47,11 @@ export default function Home() {
       minuto = data.getMinutes().toString().padStart(2, '0'),
       segundo = data.getSeconds().toString().padStart(2, '0');
     return dia + "/" + mes + "/" + ano + "  " + hora + ":" + minuto + ":" + segundo;
-  };
+  }
 
   useEffect(() => {
     getData(login);
-  }, []);  // <<--- React Hook useEffect has missing dependencies: 'getData' and 'login'. Either include them or remove the dependency array.
+  }, [])  // <<--- React Hook useEffect has missing dependencies: 'getData' and 'login'. Either include them or remove the dependency array.
 
   //busca os dados de usuario e repo do backend
   async function getData(inputName) {
@@ -98,13 +98,13 @@ export default function Home() {
     }
 
 
-  };
+  }
   
   //lida com a busca input
   function handleSearch(e) {
     e.preventDefault();
     getData(inputUserName);
-  };
+  }
 
   //faz o logout de usuario
   function handleLogout(){    
@@ -128,13 +128,13 @@ export default function Home() {
       <Header setLogoutModal={setLogoutModal} paragraph="Este app tem como objetivo utilizar um api externa do github para apresentar os profiles e seus respectivos repositórios"/>
       {/* AREA DO INPUT */}
       <div className="container">
-        <form onSubmit={e => handleSearch(e)}>
+        <form onSubmit={(e) => handleSearch(e)}>
           <div className="grid-8 form-container">
             <input
               type="text"
               placeholder={login}
               value={inputUserName}
-              onChange={e => setInputUserName(e.target.value)}
+              onChange={(e) => setInputUserName(e.target.value)}
             />
             <button type="submit"><BiSearchAlt className="search-icon" size="26" color="#fff" /></button>
           </div>
@@ -163,12 +163,12 @@ export default function Home() {
       }
       {
         logoutModal && (
-        <div className="modal-background" onClick={(e)=>closeModal(e)}>
+        <div className="modal-background" onClick={(e) => closeModal(e)}>
           <div className="modal-container" >
             <h2>Fazer logout de usuário?</h2>
             <div className="modal-button-container">
-              <button className="modal-button" onClick={()=>handleLogout()}>Sim</button>
-              <button className="modal-button" onClick={()=>setLogoutModal(false)}>Não</button>
+              <button className="modal-button" onClick={() => handleLogout()}>Sim</button>
+              <button className="modal-button" onClick={() => setLogoutModal(false)}>Não</button>
             </div>         
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function Home() {
       {/* AREA DOS REPOPOSITORIOS  */}
       <div className="container rep-container">
         <ul>
-          {repo.map(item => {
+          {repo.map((item) => {
             return (
               <li key={item.id} className="grid-8">
                 <h2 href={item.html_url}>{item.name}</h2>

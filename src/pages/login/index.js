@@ -23,7 +23,7 @@ export default function Login() {
   const url = window.location.href;
   const hasCode = url.includes("?code=");
 
-  useEffect(()=>{
+  useEffect(() => {
 
     //faz o post do code e recebe o acess_token do backend
     async function handleLogin(){  
@@ -46,11 +46,11 @@ export default function Login() {
         console.error(error.message);
       } 
 
-    };
+    }
 
    hasCode && handleLogin();
 
-  },[history,url,hasCode]);
+  },[history,url,hasCode])
 
   return (
     <div className="wrap">
@@ -70,4 +70,4 @@ export default function Login() {
       </div>
     </div>
   );
-};
+}

@@ -10,6 +10,7 @@
 
 a {
   text-decoration: none;
+  background-color: transparent;
 }
 
 /**
@@ -155,17 +156,6 @@ template {
   display: none;
 }
 
-/* Links
-   ========================================================================== */
-
-/**
- * Remove the gray background color from active links in IE 10.
- */
-
-a {
-  background-color: transparent;
-}
-
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
  */
@@ -306,7 +296,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 

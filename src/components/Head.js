@@ -7,9 +7,9 @@ export default function Head(props) {
     document
       .querySelector("meta[name='description']")
       .setAttribute("content", props.description);
-  },[props]);
+  },[props])
 
   return (
     <></>
   );
-};
+}

@@ -111,6 +111,7 @@ form button:hover {
   background-color: #4b4b4b;
   border-color: #4b4b4b;
 }
+
 .avatar-img {
   width: 100%;
   height: auto;
@@ -161,6 +162,7 @@ form button:hover {
     transform: rotate(360deg);
   }
 }
+
 .error {
   color: rgb(180, 0, 0);
   text-align: center;

@@ -7,11 +7,8 @@
  <a href="https://ghprofiles-5cf24.web.app" target="_blank">
    <img src="https://img.shields.io/badge/firebase_app--inactive?style=social&logo=Firebase&logoColor=yellow" alt="firebase app"/>
  </a> 
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Reactjs-100%25-informational" alt="reactjs 100%"/>
-  <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="license MIT"/>
+ <img src="https://img.shields.io/badge/Reactjs-100%25-informational" alt="reactjs 100%"/>
+ <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="license MIT"/>
 </p>
 
 Veja o projeto funcionando no FireBaseApp [https://ghprofiles-5cf24.web.app](https://ghprofiles-5cf24.web.app)

@@ -1,9 +1,9 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { isAuthenticated } from './auth'
+import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { isAuthenticated } from "./auth";
 
-import Home from './pages/home'
-import Login from './pages/login'
+import Home from "./pages/home";
+import Login from "./pages/login";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -12,11 +12,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         isAuthenticated() ? (
           <Component {...props} />
         ) : (
-            <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+            <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
           )
       )} />
-  )
-}
+  );
+};
 
 export default function Routes() {
   return (
@@ -26,6 +26,6 @@ export default function Routes() {
         <Route path="/login" component={Login} />
       </Switch>
     </BrowserRouter>
-  )
-}
+  );
+};
 

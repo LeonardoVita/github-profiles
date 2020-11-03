@@ -1,5 +1,6 @@
 Veja o projeto funcionando no FireBaseApp [https://ghprofiles-5cf24.web.app](https://ghprofiles-5cf24.web.app)
-![image](https://user-images.githubusercontent.com/43863949/97512267-d7561180-1967-11eb-82d8-de3d0f25122e.png)
+
+![image](https://user-images.githubusercontent.com/43863949/98009447-4ef6c700-1dd4-11eb-87d8-7ac9d9b5f4c8.png)
 
 # github-profiles
 Utilizando a API do github para apresentar profiles e repositórios pelo nome de usuário

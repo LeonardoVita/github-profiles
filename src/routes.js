@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           )
       )} />
   );
-};
+}
 
 export default function Routes() {
   return (
@@ -27,5 +27,5 @@ export default function Routes() {
       </Switch>
     </BrowserRouter>
   );
-};
+}
 

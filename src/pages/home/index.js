@@ -18,7 +18,7 @@ export default function Home() {
   const [logoutModal, setLogoutModal] = useState(false);
 
   //controlando o input
-  const [inputUserName, setInputUserName] = useState('');
+  const [inputUserName, setInputUserName] = useState("");
 
   // DADOS DO USUARIO RECEBIDOS DA API   
   const [profile, setProfile] = useState({
@@ -56,19 +56,19 @@ export default function Home() {
   //busca os dados de usuario e repo do backend
   async function getData(inputName) {
 
-    try {    
+    try{    
       setLoading(true) ;
       setError(false);
 
       const userResponse = await backend.get(`/users/${inputName}`, {
         params: {
-          "access_token": access_token,
-          "token_type": token_type
+          access_token,
+          token_type
         }
       });
       
       const userData = userResponse.data;
-      const updated_at = dataFormatada(userResponse.data.updated_at)  ;  
+      const updated_at = dataFormatada(userResponse.data.updated_at);  
       setProfile({
         ...profile,
         name: userData.name,
@@ -90,14 +90,12 @@ export default function Home() {
       const repositories = repositoriesResponse.data;
       setRepo(repositories);
 
-    } catch (error) {
+    }catch (error) {
       setError(error);
       console.error(error);
     }finally{
       setLoading(false);
     }
-
-
   }
   
   //lida com a busca input

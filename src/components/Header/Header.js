@@ -13,7 +13,7 @@ export default function Header({setLogoutModal, paragraph}) {
         </div>
         {
           setLogoutModal && (
-          <button className={style["logout-button"]} onClick={()=>setLogoutModal(true)}>
+          <button className={style["logout-button"]} onClick={() => setLogoutModal(true)}>
             <BiPowerOff size="24px"/>
           </button>
           )

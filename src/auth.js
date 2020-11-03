@@ -4,4 +4,4 @@ export const isAuthenticated = () => {
 
   const isLoged = (access_token === null) ? false : true;
   return isLoged;
-};
+}

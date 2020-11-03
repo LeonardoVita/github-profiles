@@ -69,6 +69,7 @@ body {
   border-style: none;
   color: #fff;
 }
+
 .modal-button:hover {
   background-color: rgb(39, 39, 39);
 }
@@ -177,12 +178,6 @@ form button:hover {
 
 .rep-container li {
   margin-bottom: 45px;
-}
-
-.rep-container li a {
-}
-
-.rep-container li a:hover {
 }
 
 .rep-container h2 {

@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100vh;
 }
+
 .header-container {
   color: #fff;
   background-color: #333;
@@ -17,6 +18,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .login-img {
   width: 100%;
   height: auto;

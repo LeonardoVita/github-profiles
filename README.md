@@ -1,6 +1,6 @@
 # github-profiles
 
-Utilizando a API do github para apresentar profiles e repositórios pelo nome de usuário
+Utilizando a API do github para autenticação OAuth e apresentar profiles e repositórios pelo nome de usuário pesquisado
 
 <p align="center">
  <a href="https://www.linkedin.com/in/leonardo-vita-milanez-de-almeida-48b27a14a/" target="_blank">

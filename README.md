@@ -11,7 +11,7 @@
    <img src="https://img.shields.io/badge/code__quality-B-brightgreen?logo=codacy" alt="codacy quality"/>
  </a>
  <img src="https://img.shields.io/badge/Reactjs-100%25-informational" alt="reactjs 100%"/>
- <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="license MIT"/>
+ <img src="https://img.shields.io/badge/license-MIT-red" alt="license MIT"/>
 </p>
 
 Veja o projeto funcionando no FireBaseApp [https://ghprofiles-5cf24.web.app](https://ghprofiles-5cf24.web.app)

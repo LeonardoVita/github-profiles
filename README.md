@@ -40,6 +40,10 @@ See the project running on FireBaseApp [https://ghprofiles-5cf24.web.app](https:
 [https://github.com/LeonardoVita/github-profiles-backend](https://github.com/LeonardoVita/github-profiles-backend)
 
 -  [Nodejs](https://nodejs.org/en/)
+-  [Express](https://www.npmjs.com/package/express)
+-  [Superagent](https://visionmedia.github.io/superagent/)
+-  [Environment Variables](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+-  [dotEnv](https://www.npmjs.com/package/dotenv)
 -  [cors](https://www.npmjs.com/package/cors)
 -  [GitHub Rest API v3](https://docs.github.com/en/free-pro-team@latest/rest)
 -  [GitHub OAuth app](https://docs.github.com/en/free-pro-team@latest/developers/apps/building-oauth-apps)

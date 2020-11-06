@@ -51,4 +51,4 @@ See the project running on FireBaseApp [https://ghprofiles-5cf24.web.app](https:
 
 
 ## :memo: License
-This project is under the MIT license. See the [LICENSE](https://github.com/lukemorales/react-native-design-code/blob/master/LICENSE) for more information.
+This project is under the MIT license. See the [LICENSE](https://github.com/LeonardoVita/github-profiles/blob/master/LICENSE) for more information.

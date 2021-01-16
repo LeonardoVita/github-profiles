@@ -78,12 +78,12 @@ export default function Home() {
         followers: userData.followers,
         repoCount: userData.public_repos,
         gistsCount: userData.public_gists,
-      })  ;  
+      }) ;  
   
       const repositoriesResponse = await backend.get(`/users/${inputName}/repos?per_page=8&sort=created`, {
         params: {
-          "access_token": access_token,
-          "token_type": token_type
+          access_token,
+          token_type
         }
       });
 
